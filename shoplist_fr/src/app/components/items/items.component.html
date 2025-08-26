@@ -1,0 +1,12 @@
+<div class="category-items">
+  @for (entry of categoryMap | keyvalue; track $index) {
+  <h2>{{ entry.key }}</h2>
+  <ul>
+    @for (item of entry.value; track $index) {
+    <li [routerLink]="['/items', item.id]">
+      <app-item [item]="item" />
+    </li>
+    }
+  </ul>
+  }
+</div>
