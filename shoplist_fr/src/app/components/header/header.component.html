@@ -1,5 +1,25 @@
+<!-- 
 <div class="header">
     <h1>ShopList</h1>
     <input type="text">
     <button>Sing in</button>
-</div>
+</div> -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" >
+          <a class="nav-link text-primary" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" routerLink="/register" routerLinkActive="active">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-warning" routerLink="/profile" routerLinkActive="active">User Profile</a>
+        </li>
+       <li class="nav-item">
+  <a class="nav-link text-secondary" (click)="logout()">Log Out</a>
+</li>
+
+      </ul>
+      </div>
+  </nav>
