@@ -20,7 +20,14 @@
 
       <div class="text-danger mb-2" *ngIf="errorMessage">{{ errorMessage }}</div>
 
-      <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid">Login</button>
+      <button class="btn btn-primary w-100 mb-3" type="submit" [disabled]="loginForm.invalid">Login</button>
+
+<button class="btn btn-link p-0" type="button" [routerLink]="'/register'">
+  Create account?
+</button>
+
+    
+      
     </form>
   </div>
 </div>

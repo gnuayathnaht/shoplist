@@ -2,13 +2,13 @@ import { CommonModule, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CanDeactivate, Router } from '@angular/router';
+import { CanDeactivate, Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { CanComponentDeactivate } from '../../guard/unsaved-changes.guard';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, NgIf,CommonModule],
+  imports: [ReactiveFormsModule, NgIf,CommonModule,RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
