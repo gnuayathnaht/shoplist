@@ -15,24 +15,23 @@ import lombok.Setter;
 @Table(name = "order_item")
 @Getter
 @Setter
-@NoArgsConstructor
 public class OrderItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String category;
+	private String item;
 	private int quantity;
 	private double price;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order order;
-
-	public OrderItem(String category, int quantity, double price) {
-		super();
-		this.category = category;
-		this.quantity = quantity;
-		this.price = price;
-	}
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
+	
 
 }
+

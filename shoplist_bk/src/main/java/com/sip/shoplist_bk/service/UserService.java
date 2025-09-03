@@ -14,6 +14,10 @@ public class UserService {
 	@Autowired
 	private UserRepo userRepo;
 	
+	public Optional<User> findUserById(int userId) {
+		return userRepo.findById(userId);
+	}
+	
     public User save(User user) {
         if (userRepo.existsByEmail(user.getEmail())) {
             throw new RuntimeException("User with this email already exists: " + user.getEmail());
