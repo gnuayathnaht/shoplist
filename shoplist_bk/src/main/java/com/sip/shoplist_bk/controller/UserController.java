@@ -22,63 +22,71 @@ import com.sip.shoplist_bk.service.UserService;
 @RequestMapping("/api/users")
 @CrossOrigin("http://localhost:4200/")
 public class UserController {
+
 	@Autowired
-    private UserRepo userRepo;
-	
+	private UserRepo userRepo;
+
 	@Autowired
 	private UserService userService;
+
 	@Autowired
-    private JwtUtil jwtUtil;
-	
+	private JwtUtil jwtUtil;
+
 	@PostMapping
-	public ResponseEntity<User> saveRegisterUser(@RequestBody User user){
+	public ResponseEntity<User> saveRegisterUser(@RequestBody User user) {
 		User registerUser = userRepo.save(user);
 		return ResponseEntity.ok(registerUser);
 	}
-	
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<?> loginCheck(@RequestBody User user) {
-	    User userExist = userService.findByEmail(user.getEmail());
+		User userExist = userService.findByEmail(user.getEmail());
 
-	    if (userExist == null) {
-	        return ResponseEntity.status(401).body("Email not found");
-	    }
+		if (userExist == null) {
+			return ResponseEntity.status(401).body("Email not found");
+		}
 
-	    if (!userExist.getPassword().equals(user.getPassword())) {
-	        return ResponseEntity.status(401).body("Password incorrect");
-	    }
+		if (!userExist.getPassword().equals(user.getPassword())) {
+			return ResponseEntity.status(401).body("Password incorrect");
+		}
 
-	    String token = jwtUtil.generateToken(userExist.getEmail(), userExist.getId());
-	    return ResponseEntity.ok(new LoginResponse(token, userExist));
+		String token = jwtUtil.generateToken(userExist.getEmail(), userExist.getId());
+		return ResponseEntity.ok(new LoginResponse(token, userExist));
 	}
+	
+//	@GetMapping("/validate")
+//	public ResponseEntity<Boolean> validateToken(@RequestHeader(value = "Authorization", required = false) String authHeader) {
+//	    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+//	        String token = authHeader.substring(7);
+//	        boolean isValid = jwtUtil.validateToken(token);
+//
+//	        if (isValid) {
+//	            return ResponseEntity.ok(true);
+//	        }
+//	    }
+//	    return ResponseEntity.status(401).body(false);
+//	}
 	
 	@GetMapping("/profile")
 	public ResponseEntity<User> getProfile(@RequestHeader("Authorization") String authHeader) {
 		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            System.out.println("Incoming JWT Token: " + token);
-            if (jwtUtil.validateToken(token)) {
-                Integer userId = jwtUtil.extractUserId(token);
-                User user = userService.findById(userId);
-              //  User userDto = new User();
-                return ResponseEntity.ok(user);
-            }
-        }
-        return ResponseEntity.status(401).build();
-	    
+			String token = authHeader.substring(7);
+			System.out.println("Incoming JWT Token: " + token);
+			if (jwtUtil.validateToken(token)) {
+				Integer userId = jwtUtil.extractUserId(token);
+				User user = userService.findById(userId);
+				// User userDto = new User();
+				return ResponseEntity.ok(user);
+			}
+		}
+		return ResponseEntity.status(401).build();
+
 	}
 
-
-	
 	@PutMapping("/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
-	    User updatedUser = userService.updateUser(id, user);
-	    return ResponseEntity.ok(updatedUser);
+		User updatedUser = userService.updateUser(id, user);
+		return ResponseEntity.ok(updatedUser);
 	}
 
-		
-	}
-	
-
-
+}

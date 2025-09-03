@@ -1,22 +1,30 @@
 package com.sip.shoplist_bk.controller;
 
-import com.sip.shoplist_bk.entity.Item;
-import com.sip.shoplist_bk.service.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sip.shoplist_bk.entity.Item;
+import com.sip.shoplist_bk.service.ItemService;
 
 @RestController
 @RequestMapping("/api/items")
@@ -42,8 +50,15 @@ public class ItemController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<List<Item>> findItemById(@PathVariable Integer id) {
+    public ResponseEntity<List<Item>> findItemsByCategoryId(@PathVariable Integer id) {
         List<Item> item = itemService.findItemsByCategoryId(id);
+        return ResponseEntity.ok(item);
+    }
+    
+    @GetMapping("/itemId/{id}")
+    public ResponseEntity<Item> findItemById(@PathVariable Integer id) {
+    	
+        Item item = itemService.findById(id);
         return ResponseEntity.ok(item);
     }
 
@@ -74,5 +89,11 @@ public class ItemController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG) // or detect content type
                 .body(resource);
+    }
+    
+    @GetMapping("/search")
+    public ResponseEntity<List<Item>> getSearchItems(@RequestParam("keyword") String keyword){
+    	List<Item> items = this.itemService.findItemsByKeyword(keyword);
+    	return ResponseEntity.ok(items);
     }
 }
