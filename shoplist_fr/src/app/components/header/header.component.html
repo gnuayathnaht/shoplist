@@ -1,25 +1,38 @@
-<!-- 
-<div class="header">
-    <h1>ShopList</h1>
-    <input type="text">
-    <button>Sing in</button>
-</div> -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item" >
-          <a class="nav-link text-primary" routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-danger" routerLink="/register" routerLinkActive="active">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-warning" routerLink="/profile" routerLinkActive="active">User Profile</a>
-        </li>
-       <li class="nav-item">
-  <a class="nav-link text-secondary" (click)="logout()">Log Out</a>
-</li>
+<div class="">
+  <div class="d-flex flex-wrap align-items-center justify-content-between bg-light px-3 py-1 rounded shadow-sm">
 
-      </ul>
+    <h1 class="h3 mb-0">ShopList</h1>
+
+    <div class="input-group mb-2 mb-md-0" style="max-width: 400px;">
+      <input type="text" class="form-control" placeholder="Search product ..." [(ngModel)]="searchKeyword"
+        id="itemSearch" name="itemSearch">
+      <button class="btn btn-outline-primary" (click)="searchByKeyword()">Search</button>
+    </div>
+
+    <div class="d-flex">
+      @if (!authService.getToken()) {
+      <button class="btn btn-primary me-2" routerLink="/login">Sign In</button>
+      <button class="btn btn-primary me-2" routerLink="/register">Sign Up</button>
+      }
+      @else {
+      <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+        <i class="fa fa-user"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-end">
+        <button class="dropdown-item" routerLink="/profile">
+          Profile
+        </button>
+        <button class="dropdown-item">
+          OrderHistory
+        </button>
+        <button class="dropdown-item" (click)="logout()">Logout</button>
       </div>
-  </nav>
+      <div>
+        <button class="btn">
+          <i class="fa fa-shopping-cart"></i>
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+</div>

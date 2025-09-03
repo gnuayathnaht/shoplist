@@ -1,0 +1,15 @@
+@if (itemCount > 0) {
+<h2 class="ms-3 mt-3">{{categoryName}}</h2>
+<div class="row mx-3 mt-3 g-3">
+  @for (item of items; track $index) {
+  <div class="col-lg-3 col-md-4 col-sm-12" [routerLink]="['/items', item.id]">
+    <app-item [item]="item" />
+  </div>
+  }
+</div>
+}
+@else {
+<div class="d-flex justify-content-center align-items-center my-4">
+  <h1 class="text-muted">No items</h1>
+</div>
+}

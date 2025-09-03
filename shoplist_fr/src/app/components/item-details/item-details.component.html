@@ -1,1 +1,37 @@
-<p>item-details works!</p>
+<div class="container my-4">
+    @if (item) {
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <!-- to show img -->
+            <div class="item-img">
+                <img [src]="'http://localhost:8080/api/items/images/' + item.imagePath" class="w-100">
+            </div>
+        </div>
+        <div class="col-md-6 col-12">
+            <!-- to show content -->
+            <div class="content">
+                <div class="h3 name">
+                    {{ item.name }}
+                </div>
+                <div class="price">
+                    {{ item.price }} Ks
+                </div>
+                <div class="description">
+                    {{ item.description }}
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6 d-flex flex-row">
+                        <button class="btn btn-outline-secondary me-3 " (click)="decreaseItemCount()">-</button>
+                        <input type="text" name="count" class="form-control me-3 item-count" [value]="itemCount"
+                            disabled />
+                        <button class="btn btn-outline-secondary" (click)="increaseItemCount()">+</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-info btn-sm w-100 " (click)="addToCart(item)">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

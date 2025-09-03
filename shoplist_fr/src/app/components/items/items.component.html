@@ -1,12 +1,13 @@
 <div class="category-items">
   @for (entry of categoryMap | keyvalue; track $index) {
-  <h2>{{ entry.key }}</h2>
-  <ul>
+  <h2 class="ms-3 mt-3">{{ entry.key }}</h2>
+  <div class="row  mx-3 mt-3 g-3">
     @for (item of entry.value; track $index) {
-    <li [routerLink]="['/items', item.id]">
+    <div class="col-lg-3 col-md-4 col-sm-12" [routerLink]="['/items', item.id]">
       <app-item [item]="item" />
-    </li>
+    </div >
     }
-  </ul>
+  </div>
   }
 </div>
+

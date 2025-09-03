@@ -1,0 +1,6 @@
+img.profile-photo{
+    width: 50px;
+    height: 40px;
+    /* border-radius: 50%; */
+    border: 1px solid rgb(0, 0, 0);
+}

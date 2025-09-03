@@ -5,6 +5,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { unsavedChangesGuard } from './guard/unsaved-changes.guard';
+import { CategoryComponent } from './components/category/category.component';
+import { SearchedItemsComponent } from './components/searched-items/searched-items.component';
 
 export const routes: Routes = [
     {
@@ -15,7 +17,6 @@ export const routes: Routes = [
         path: 'items/:itemId',
         component: ItemDetailsComponent
     },
-
     {
         path: 'register',
         component: RegisterComponent,
@@ -25,8 +26,23 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent
     },
-    { path: 'profile',
-         component: ProfileComponent,
-         canDeactivate: [unsavedChangesGuard] }
-         
+    {
+        path: 'profile',
+        component: ProfileComponent,
+        canDeactivate: [unsavedChangesGuard]
+    },
+    {
+        path: 'items/:itemId',
+        component: ItemDetailsComponent
+    },
+    {
+        path: 'category/:id',
+        component: CategoryComponent
+    },
+    {
+        path: 'items',
+        component: SearchedItemsComponent
+    },
+
+
 ];

@@ -14,11 +14,19 @@ export class ItemsService {
     return this.httpClient.get<Item[]>(this.API_URL);
   }
 
+  getItemByID(itemId: number){
+    return this.httpClient.get<Item>(`${this.API_URL}/itemId/${itemId}`);
+  }
+
   saveItem(item: Item) {
     return this.httpClient.post<Item>(this.API_URL, item);
   }
 
   getItemsByCategoryId(categoryId?: number) {
     return this.httpClient.get<Item[]>(`${this.API_URL}/${categoryId}`);
+  }
+
+  getItemsByKeyword(keyword: string){
+    return this.httpClient.get<Item[]>(`${this.API_URL}/search?keyword=${keyword}`);
   }
 }
