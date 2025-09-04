@@ -54,18 +54,18 @@ public class UserController {
 		return ResponseEntity.ok(new LoginResponse(token, userExist));
 	}
 	
-//	@GetMapping("/validate")
-//	public ResponseEntity<Boolean> validateToken(@RequestHeader(value = "Authorization", required = false) String authHeader) {
-//	    if (authHeader != null && authHeader.startsWith("Bearer ")) {
-//	        String token = authHeader.substring(7);
-//	        boolean isValid = jwtUtil.validateToken(token);
-//
-//	        if (isValid) {
-//	            return ResponseEntity.ok(true);
-//	        }
-//	    }
-//	    return ResponseEntity.status(401).body(false);
-//	}
+	@GetMapping("/validate")
+	public ResponseEntity<Boolean> validateToken(@RequestHeader(value = "Authorization", required = false) String authHeader) {
+	    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+	        String token = authHeader.substring(7);
+	        boolean isValid = jwtUtil.validateToken(token);
+
+	        if (isValid) {
+	            return ResponseEntity.ok(true);
+	        }
+	    }
+	    return ResponseEntity.status(401).body(false);
+	}
 	
 	@GetMapping("/profile")
 	public ResponseEntity<User> getProfile(@RequestHeader("Authorization") String authHeader) {
