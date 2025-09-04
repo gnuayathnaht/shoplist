@@ -23,7 +23,6 @@ export class ItemsComponent {
   categoryMap: Map<string, Item[]> = new Map<string, Item[]>();
 
   ngOnInit() {
-
     this.categoryService.getAllCategories().subscribe({
       next: resp => this.categories.set(resp),
       complete: () => {

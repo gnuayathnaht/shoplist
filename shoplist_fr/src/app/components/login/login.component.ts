@@ -43,6 +43,7 @@ export class LoginComponent {
             this.authService.saveToken(response.token);
             localStorage.setItem('user', JSON.stringify(response));
             alert('Login successful!...');
+            this.authService.setAuthentication(true);
             this.router.navigate(['/']);
           } else {
             this.errorMessage = 'Invalid email or password!';
