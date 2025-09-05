@@ -1,0 +1,52 @@
+
+<div class="container mt-4">
+  <div class="d-flex align-items-center mb-3">
+    <h4 class="me-2"><i class="fa-solid fa-cart-shopping"></i></h4>
+    <span class="badge bg-primary" *ngIf="cartCount > 0">{{ cartCount }}</span>
+  </div>
+
+  <div *ngIf="cartItems.length > 0" class="card p-4 shadow-sm col-md-6 m-auto">
+    <h2 class="mb-4">Your Cart</h2>
+
+    <div *ngFor="let item of cartItems" class="mb-3 border-bottom pb-3">
+      <div *ngIf="item.quantity > 0" class="row align-items-center">
+        <div class="col-md-6">
+          <p class="mb-1 fw-bold">{{ item.orderItem }}</p>
+          <p class="text-muted">{{ item.categoryName }}</p>
+          <p class="text-success">{{ item.price |currency}}</p>
+        </div>
+
+        <div class="col-md-4 d-flex align-items-center">
+          <button class="btn btn-outline-secondary me-2" (click)="decreaseQty(item)">−</button>
+          <span>{{ item.quantity }}</span>
+          <button class="btn btn-outline-secondary ms-2" (click)="increaseQty(item)">+</button>
+        </div>
+
+        <div class="col-md-2">
+          <p class="mb-0">Total:</p>
+          <span>{{ item.quantity * item.price | currency}}</span>
+        </div>
+      </div>
+
+      <div class="text-end mt-2">
+        <button class="btn btn-sm btn-danger" (click)="removeItem(item.id)">Remove</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <h4>Total:</h4>
+      <h4 class="text-primary">{{totalPrice | currency}}</h4>
+    </div>
+
+    <div class="container mt-5 text-center">
+      <div class="row">
+        <div class="col-md-6 m-auto">
+          <button class="btn btn-success" (click)="proceedToCheckout()">
+           Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

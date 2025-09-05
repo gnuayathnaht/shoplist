@@ -1,0 +1,42 @@
+<div class="container mt-4 checkout-container">
+  <h2 class="mb-4">Order Summary</h2>
+
+  <div *ngFor="let item of cartItems" class="border-bottom pb-3 mb-3">
+    <div class="row">
+      <div class="col-md-6">
+        <span class="fw-bold me-2">{{ item.orderItem }}</span>
+        <span class="text-muted">{{ item.categoryName }}</span>
+      </div>
+      <div class="col-md-3">
+        <span>{{ item.price | currency }} × {{ item.quantity }}</span>
+      </div>
+      <div class="col-md-3 text-end">
+        <span class="fw-semibold">Subtotal: {{ item.price * item.quantity | currency }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>Total:</h4>
+    <h4 class="text-primary">{{ total | currency }}</h4>
+  </div>
+
+  <div class="mb-4">
+    <h5>Shipping Address</h5>
+    <p *ngIf="address; else loading" class="border p-2 rounded bg-light">{{ address }}</p>
+    <ng-template #loading><p class="text-muted">Loading address...</p></ng-template>
+  </div>
+
+  <div class="mb-4">
+    <h5>Payment Method</h5>
+    <select class="form-select w-50" [(ngModel)]="paymentMethod">
+      <option value="credit">Credit Card</option>
+      <option value="paypal">PayPal</option>
+      <option value="cod">Cash on Delivery</option>
+    </select>
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-success" (click)="orderConfirm()">Confirm Order</button>
+  </div>
+</div>

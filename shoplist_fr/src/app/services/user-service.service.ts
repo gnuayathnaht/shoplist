@@ -25,4 +25,12 @@ export class UserServiceService {
   updateUser(user: User): Observable<User> {
     return this.httpClient.put<User>(`${this.apiUrl}/${user.id}`, user);
   }
+
+  getUserAddress(userId:number):Observable<string>{
+    return this.httpClient.get(`${this.apiUrl}/address/${userId}`,{ responseType: 'text' });
+  }
+
+  getUserById(userId:number):Observable<User>{
+     return this.httpClient.get<User>(`${this.apiUrl}/${userId}`);
+  }
 }
