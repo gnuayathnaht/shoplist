@@ -3,12 +3,14 @@ package com.sip.shoplist_bk.dto;
 import com.sip.shoplist_bk.entity.CartItem;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class CartItemDto {
     private int id;
     private String categoryName;

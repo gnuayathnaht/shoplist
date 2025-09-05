@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sip.shoplist_bk.dto.UserDto;
 import com.sip.shoplist_bk.entity.User;
 import com.sip.shoplist_bk.repo.UserRepo;
 
@@ -14,8 +15,18 @@ public class UserService {
 	@Autowired
 	private UserRepo userRepo;
 	
+	public Optional<UserDto> findUserDtoById(int userId) {
+		return userRepo.findById(userId).map(UserDto::new);
+	}
+	
 	public Optional<User> findUserById(int userId) {
 		return userRepo.findById(userId);
+	}
+	
+	public String findAddressByUserId(int userId) {
+		User user = userRepo.findById(userId).orElse(new User());
+		return user.getAddress();
+
 	}
 	
     public User save(User user) {

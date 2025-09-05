@@ -12,6 +12,8 @@ import lombok.ToString;
 @ToString
 public class OrderDto {
 	private int userId;
+	private int cartId;
 	private List<CartItemDto> cartItems = new ArrayList<>();
 	private double total;
+	private String payment;
 }

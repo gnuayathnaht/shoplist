@@ -1,5 +1,7 @@
 package com.sip.shoplist_bk.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sip.shoplist_bk.dto.LoginResponse;
+import com.sip.shoplist_bk.dto.UserDto;
 import com.sip.shoplist_bk.entity.User;
 import com.sip.shoplist_bk.jwt.JwtUtil;
 import com.sip.shoplist_bk.repo.UserRepo;
@@ -31,7 +34,19 @@ public class UserController {
 
 	@Autowired
 	private JwtUtil jwtUtil;
+	
 
+	@GetMapping("/{userId}")
+	public ResponseEntity<UserDto> getUserByID(@PathVariable int userId){
+		Optional<UserDto> user = userService.findUserDtoById(userId);
+		System.out.println(user);
+		if(user.isPresent()) {
+			return ResponseEntity.ok(user.get());
+		}else {
+			return ResponseEntity.notFound().build();
+		}
+		
+	}
 	@PostMapping
 	public ResponseEntity<User> saveRegisterUser(@RequestBody User user) {
 		User registerUser = userRepo.save(user);

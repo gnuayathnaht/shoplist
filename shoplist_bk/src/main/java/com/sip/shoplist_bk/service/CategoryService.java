@@ -22,4 +22,8 @@ public class CategoryService {
         return categoryRepo.findAll();
     }
     
+    public Category findByName(String categoryName) {
+		return categoryRepo.findByName(categoryName).orElseThrow();
+	}
+    
 }
