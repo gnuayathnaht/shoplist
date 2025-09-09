@@ -42,6 +42,7 @@ export class LoginComponent {
             console.log('JWT Token:', response.token);
             this.authService.saveToken(response.token);
             localStorage.setItem('user', JSON.stringify(response));
+            console.log('Set response to localStorage : ' ,localStorage.getItem('user'));
             alert('Login successful!...');
             this.authService.setAuthentication(true);
             this.router.navigate(['/']);

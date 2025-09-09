@@ -1,0 +1,19 @@
+<h2>Invoice</h2>
+<div *ngIf="invoice">
+  <p><strong>User:</strong> {{ invoice.userName }} ({{ invoice.userEmail }})</p>
+  <p><strong>Total:</strong> ${{ invoice.total }}</p>
+
+  <h3>Items</h3>
+  <ul>
+    <li *ngFor="let item of invoice.items">
+       Category: {{ item.categoryName }}  | Item: {{item.itemName}}  | Qty: {{ item.quantity }} | ${{ item.price }}
+    </li>
+  </ul>
+
+  <button (click)="sendEmail()">📧 Send Invoice to Email</button>
+
+  <p *ngIf="emailStatus" style="margin-top:10px; font-weight:bold;">
+    {{ emailStatus }}
+  </p>
+</div>
+

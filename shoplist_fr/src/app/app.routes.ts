@@ -10,54 +10,58 @@ import { SearchedItemsComponent } from './components/searched-items/searched-ite
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
+import { OrderHistoryComponent } from './components/order-history-component/order-history-component.component';
+import { OrderDetailComponent } from './components/order-detail-component/order-detail-component.component';
+import { InvoiceComponent } from './components/invoice-component/invoice-component.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: ItemsComponent
-    },
-    {
-        path: 'items/:itemId',
-        component: ItemDetailsComponent
-    },
-    {
-        path: 'register',
-        component: RegisterComponent,
-        canDeactivate: [unsavedChangesGuard]
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'profile',
-        component: ProfileComponent,
-        canDeactivate: [unsavedChangesGuard]
-    },
-    {
-        path: 'items/:itemId',
-        component: ItemDetailsComponent
-    },
-    {
-        path: 'category/:id',
-        component: CategoryComponent
-    },
-    {
-        path: 'items',
-        component: SearchedItemsComponent
-    },
-     {
-        path: 'cart',
-        component: CartComponent
-    },
-     {
-        path: 'checkout',
-        component: CheckoutComponent
-    },
-     {
-        path: 'order/success',
-        component: OrderSuccessComponent
-    },
-
-
+  {
+    path: '',
+    component: ItemsComponent,
+  },
+  {
+    path: 'items/:itemId',
+    component: ItemDetailsComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canDeactivate: [unsavedChangesGuard],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canDeactivate: [unsavedChangesGuard],
+  },
+  {
+    path: 'items/:itemId',
+    component: ItemDetailsComponent,
+  },
+  {
+    path: 'category/:id',
+    component: CategoryComponent,
+  },
+  {
+    path: 'items',
+    component: SearchedItemsComponent,
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
+  },
+  {
+    path: 'order/success',
+    component: OrderSuccessComponent,
+  },
+  { path: 'orders', component: OrderHistoryComponent },
+  { path: 'orders/:id', component: OrderDetailComponent },
+  { path: 'invoice/:id', component: InvoiceComponent },
 ];
