@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { OrderService } from '../../services/order.service';
 import { Router } from '@angular/router';
 import { Order } from '../../model/order.model';
+import { AuthServiceService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-checkout',
@@ -26,11 +27,13 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private userService: UserServiceService,
     private orderService: OrderService,
+    private authService: AuthServiceService,
     private router: Router
   ) {
 
   }
   ngOnInit(): void {
+    this.userId = this.authService.getUserId();
     this.cartService.getCartByUserId(this.userId).subscribe(cart => {
       console.log(cart);
       this.cartId = cart.cartId;
