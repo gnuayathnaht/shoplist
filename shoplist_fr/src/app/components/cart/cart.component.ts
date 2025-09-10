@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../model/cart-item.model';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../../services/auth-service.service';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class CartComponent implements OnInit {
   cartCount:number = 0;
   totalPrice:number = 0;
   userId: number = 1;
+
+  authService = inject(AuthServiceService);
   
   constructor(
     private cartService: CartService,
@@ -28,6 +31,7 @@ export class CartComponent implements OnInit {
   }
 
   private loadCart() {
+    this.userId = this.authService.getUserId();
     this.cartService.getCartByUserId(this.userId)
       .subscribe(
         (cart) => {

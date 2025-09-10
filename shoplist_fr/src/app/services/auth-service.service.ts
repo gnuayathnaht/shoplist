@@ -32,6 +32,16 @@ export class AuthServiceService {
     return localStorage.getItem('token');
   }
 
+  getUserId() {
+    const userData = JSON.parse(localStorage.getItem("user") || 'null');
+    if (userData && userData.user) {
+      const userId = userData.user.id;
+      return userId;
+    } else {
+      console.log("User data not found.");
+    }
+  }
+
   checkToken() {
     this.validateToken().subscribe({
       next: (response) => this.loggedIn.next(response),

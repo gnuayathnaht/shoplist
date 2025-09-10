@@ -3,7 +3,11 @@ import { Item } from '../../model/item.model';
 import { ItemsService } from '../../services/items.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from '../../model/category.model';
-import { CategoryService } from '../../services/category.service';
+import { CartItem } from '../../model/cart-item.model';
+import { CategoryService} from '../../services/category.service';
+import { AuthServiceService } from '../../services/auth-service.service';
+import { CartService } from '../../services/cart.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-item-details',
@@ -19,10 +23,14 @@ export class ItemDetailsComponent {
 
   categories!: Category[];
   categoryName: string = '';
+  isLoggedIn: Boolean = false;
   categoryService = inject(CategoryService);
 
   router = inject(Router);
   route = inject(ActivatedRoute);
+  authService = inject(AuthServiceService);
+  cartService = inject(CartService);
+  http = inject(HttpClient);
 
   @Input({ required: true }) itemId!: number;
 
@@ -34,6 +42,10 @@ export class ItemDetailsComponent {
       console.log('data ', data);
       this.categories = data;
     })
+
+    this.authService.isLoggedIn$.subscribe(status => {
+      this.isLoggedIn = status;
+    });
   }
 
   increaseItemCount() {
@@ -63,33 +75,33 @@ export class ItemDetailsComponent {
 
     console.log('category name', this.categoryName);
 
+    // let isLogin: boolean = false;
+    if (this.isLoggedIn) {
 
-    let isLogin: boolean = false;
-    if (isLogin) {
+    
       //add item to cart
       if (item.id) {
-        let cart = {
+        let cartItem: CartItem = {
           id: item.id,
           categoryName: this.categoryName,
           orderItem: item.name,
           price: item.price,
-          imgPath: item.imagePath,
+          // imgPath: item.imagePath,
           quantity: this.itemCount
         }
-        console.log('add to cart item', cart);
+
+        
+        let userId = this.authService.getUserId();
+
+        //call api to save data to cart and cartItem
+        this.cartService.saveCart(userId, cartItem).subscribe(data=> {
+          console.log('after saving ', data)
+          alert('item is add')
+        });
       }
     }
     else {
-      let isExistAcc: boolean = false;
-      if (isExistAcc) {
-        //ask user to login
-
-      }
-      else {
-        //ask user to register
-
-        //after register, force user to login
-      }
+      this.router.navigate(['/login']);
     }
   }
 }

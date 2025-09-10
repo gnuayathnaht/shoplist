@@ -2,13 +2,15 @@ package com.sip.shoplist_bk.service;
 
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
 import com.sip.shoplist_bk.dto.CartDto;
 import com.sip.shoplist_bk.entity.Cart;
 import com.sip.shoplist_bk.entity.CartItem;
+import com.sip.shoplist_bk.entity.User;
 import com.sip.shoplist_bk.repo.CartItemRepo;
 import com.sip.shoplist_bk.repo.CartRepo;
+import com.sip.shoplist_bk.repo.UserRepo;
+
+import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,9 +19,14 @@ import lombok.RequiredArgsConstructor;
 public class CartService {
 	private final CartRepo cartRepo;
 	private final CartItemRepo cartItemRepo;
+	private final UserRepo userRepo;
 	
 	public Optional<CartDto> getCartByUserId(int userId){
 		return cartRepo.findByUserId(userId).map(CartDto::new);
+	}
+	
+	public Optional<Cart> getCartByUser(int userId) {
+		return cartRepo.findByUserId(userId);
 	}
 	
 	 public void updateCartItemQuantity(int cartItemId, int quantity) {
@@ -45,5 +52,19 @@ public class CartService {
 		}
 
 		
+	}
+	
+	public Cart saveCart(int userId) {
+		Optional<User> data  = userRepo.findById(userId);
+		Cart cart = null;
+		if(data!=null) {
+			User user = data.get();
+			
+			cart = new Cart();
+			cart.setUser(user);
+			cart = cartRepo.save(cart);
+		}
+		
+		return cart;
 	}
 }

@@ -23,7 +23,8 @@ public class CategoryService {
     }
     
     public Category findByName(String categoryName) {
-		return categoryRepo.findByName(categoryName).orElseThrow();
+		return categoryRepo.findByName(categoryName).orElseThrow(() -> new RuntimeException("Category not found: " + categoryName));
 	}
+    
     
 }

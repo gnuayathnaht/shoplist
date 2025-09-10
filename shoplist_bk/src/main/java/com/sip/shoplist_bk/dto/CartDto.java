@@ -1,16 +1,18 @@
 package com.sip.shoplist_bk.dto;
 
 
-import com.sip.shoplist_bk.entity.Cart;
-
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sip.shoplist_bk.entity.Cart;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
+@NoArgsConstructor
 public class CartDto {
     private int cartId;
     private int userId;
