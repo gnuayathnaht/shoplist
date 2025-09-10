@@ -66,7 +66,8 @@ public class UserController {
 		}
 
 		String token = jwtUtil.generateToken(userExist.getEmail(), userExist.getId());
-		return ResponseEntity.ok(new LoginResponse(token, userExist));
+		UserDto userDto = new UserDto(userExist);
+		return ResponseEntity.ok(new LoginResponse(token, userDto));
 	}
 	
 	@GetMapping("/validate")
@@ -83,17 +84,15 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile")
-	public ResponseEntity<User> getProfile(@RequestHeader("Authorization") String authHeader) {
-		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-			String token = authHeader.substring(7);
-			System.out.println("Incoming JWT Token: " + token);
-			if (jwtUtil.validateToken(token)) {
-				Integer userId = jwtUtil.extractUserId(token);
-				User user = userService.findById(userId);
-				// User userDto = new User();
-				return ResponseEntity.ok(user);
-			}
-		}
+	public ResponseEntity<UserDto> getProfile(@RequestHeader("Authorization") String authHeader) {
+	    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+	        String token = authHeader.substring(7);
+	        if (jwtUtil.validateToken(token)) {
+	            Integer userId = jwtUtil.extractUserId(token);
+	            User user = userService.findById(userId);
+	            return ResponseEntity.ok(new UserDto(user));
+	        }
+	    }
 		return ResponseEntity.status(401).build();
 
 	}
