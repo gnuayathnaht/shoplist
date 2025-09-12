@@ -1,43 +1,57 @@
 <div class="">
-  <div class="d-flex flex-wrap align-items-center justify-content-between bg-light px-3 py-1 rounded shadow-sm">
+  <div
+    class="d-flex flex-wrap align-items-center justify-content-between bg-light px-3 py-1 rounded shadow-sm"
+  >
+    <div>
+      <a class="text-decoration-none text-black" [routerLink]="['/']">
+        <h1 class="h3 mb-0">ShopList</h1>
+      </a>
+    </div>
 
-    <h1 class="h3 mb-0">ShopList</h1>
-
-    <div class="input-group mb-2 mb-md-0" style="max-width: 400px;">
-      <input type="text" class="form-control" placeholder="Search product ..." [(ngModel)]="searchKeyword"
-        id="itemSearch" name="itemSearch">
-      <button class="btn btn-outline-primary" (click)="searchByKeyword()">Search</button>
+    <div class="input-group mb-2 mb-md-0" style="max-width: 400px">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search product ..."
+        [(ngModel)]="searchKeyword"
+        (ngModelChange)="onInputChange()"
+        id="itemSearch"
+        name="itemSearch"
+      />
+      <button class="btn btn-outline-primary" (click)="searchByKeyword()">
+        Search
+      </button>
     </div>
 
     <div class="d-flex">
-      @if (authService.getToken()) {
-        @if (isLoggedIn) {
-          <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-            <i class="fa fa-user"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end">
-            <button class="dropdown-item" routerLink="/profile">
-              Profile
-            </button>
-            <button class="dropdown-item" routerLink="/orders">
-              OrderHistory
-            </button>
-            <button class="dropdown-item" (click)="logout()">Logout</button>
-          </div>
-          <div>
-            <button class="btn" [routerLink]="['/cart']">
-              <i class="fa fa-shopping-cart"></i>
-            </button>
-          </div>
-        }
-        @else {
-          <button class="btn btn-primary me-2" routerLink="/login">Sign In</button>
-          <button class="btn btn-primary me-2" routerLink="/register">Sign Up</button>
-        }
-      }
-      @else {
+      @if (authService.getToken()) { @if (isLoggedIn) {
+      <button
+        type="button"
+        class="btn dropdown-toggle"
+        data-bs-toggle="dropdown"
+      >
+        <i class="fa fa-user"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-end">
+        <button class="dropdown-item" routerLink="/profile">Profile</button>
+        <button class="dropdown-item" routerLink="/orders">OrderHistory</button>
+        <button class="dropdown-item" (click)="logout()">Logout</button>
+      </div>
+      <div>
+        <button class="btn" [routerLink]="['/cart']">
+          <i class="fa fa-shopping-cart"></i>
+        </button>
+      </div>
+      } @else {
       <button class="btn btn-primary me-2" routerLink="/login">Sign In</button>
-      <button class="btn btn-primary me-2" routerLink="/register">Sign Up</button>
+      <button class="btn btn-primary me-2" routerLink="/register">
+        Sign Up
+      </button>
+      } } @else {
+      <button class="btn btn-primary me-2" routerLink="/login">Sign In</button>
+      <button class="btn btn-primary me-2" routerLink="/register">
+        Sign Up
+      </button>
       }
     </div>
   </div>

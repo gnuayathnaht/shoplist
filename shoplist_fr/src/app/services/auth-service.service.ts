@@ -63,7 +63,7 @@ export class AuthServiceService {
     if (confirmLogout) {
       this.setAuthentication(false);
       localStorage.removeItem("token");
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
 
     }
   }

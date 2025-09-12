@@ -7,14 +7,14 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-header',
   imports: [RouterModule, RouterLink, FormsModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
-export class HeaderComponent implements OnInit{
-
+export class HeaderComponent implements OnInit {
   searchKeyword: string = '';
   isLoggedIn: Boolean = false;
   router = inject(Router);
-  public authService = inject(AuthServiceService)
+  private readonly milisToSearch: number = 1000;
+  public authService = inject(AuthServiceService);
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -22,17 +22,25 @@ export class HeaderComponent implements OnInit{
       this.authService.checkToken();
     }
 
-    this.authService.isLoggedIn$.subscribe(status => {
+    this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
     });
   }
 
   searchByKeyword() {
-    this.router.navigate(['/items'], { queryParams: { search: this.searchKeyword } });
+    this.router.navigate(['/items'], {
+      queryParams: { search: this.searchKeyword },
+    });
   }
 
   logout() {
     this.authService.logout();
   }
 
+  onInputChange() {
+    setTimeout(() => {
+      this.searchByKeyword();
+    }, this.milisToSearch); 
+   
+  }
 }
