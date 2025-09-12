@@ -3,13 +3,15 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
 import { Item } from '../../model/item.model';
 import { ItemComponent } from '../item/item.component';
+import { NoProductComponent } from '../no-product/no-product.component';
 
 
 @Component({
   selector: 'app-searched-items',
   imports: [
     RouterLink,
-    ItemComponent
+    ItemComponent,
+    NoProductComponent,
   ],
   templateUrl: './searched-items.component.html',
   styleUrl: './searched-items.component.css'

@@ -35,6 +35,7 @@ public class User {
 	private String address;
 	
 	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private Cart cart;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

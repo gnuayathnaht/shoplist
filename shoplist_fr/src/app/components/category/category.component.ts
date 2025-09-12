@@ -3,10 +3,11 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
 import { Item } from '../../model/item.model';
 import { ItemComponent } from '../item/item.component';
+import { NoProductComponent } from '../no-product/no-product.component';
 
 @Component({
   selector: 'app-category',
-  imports: [ItemComponent, RouterLink],
+  imports: [ItemComponent, RouterLink, NoProductComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })

@@ -1,4 +1,4 @@
-
+@if (cartItems.length > 0) {
 <div class="container mt-4">
   <div class="d-flex align-items-center mb-3">
     <h4 class="me-2"><i class="fa-solid fa-cart-shopping"></i></h4>
@@ -50,3 +50,10 @@
 
   </div>
 </div>
+}
+@else {
+  <app-no-product>
+    <span title>Your Cart is Empty</span>
+    <span message>You haven't added any products yet. Start shopping now!</span>
+  </app-no-product>
+}

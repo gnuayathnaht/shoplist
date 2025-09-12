@@ -4,11 +4,12 @@ import { CartItem } from '../../model/cart-item.model';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { NoProductComponent } from '../no-product/no-product.component';
 
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule],
+  imports: [CommonModule, NoProductComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
