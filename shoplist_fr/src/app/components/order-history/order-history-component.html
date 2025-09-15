@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order History</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="orders-container">
+        <h2 class="section-title">Order History</h2>
+
+        <ul class="orders-list">
+          <li *ngFor="let order of orders">
+            <div class="order-card">
+              <div class="order-header">
+                <span class="order-id">Order {{order.id}}</span>
+                <span class="order-total">$ {{order.total}}</span>
+              </div>
+              <span class="order-date">
+                <i class="far fa-calendar-alt"></i> Date: {{ order.orderDateTime
+                | date:'short' }}
+              </span>
+              <div class="order-details">
+                <button class="view-details" (click)="viewOrder(order.id)">
+                  View Details
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

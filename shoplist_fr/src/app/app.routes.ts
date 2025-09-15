@@ -10,9 +10,9 @@ import { SearchedItemsComponent } from './components/searched-items/searched-ite
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
-import { OrderHistoryComponent } from './components/order-history-component/order-history-component.component';
-import { OrderDetailComponent } from './components/order-detail-component/order-detail-component.component';
-import { InvoiceComponent } from './components/invoice-component/invoice-component.component';
+import { OrderHistoryComponent } from './components/order-history/order-history-component';
+import { OrderDetailComponent } from './components/order-detail/order-detail-component';
+import { InvoiceComponent } from './components/invoice/invoice-component';
 
 export const routes: Routes = [
   {
