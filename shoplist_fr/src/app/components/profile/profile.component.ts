@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit, CanComponentDeactivate{
   profileForm!: FormGroup;
   currentUser!: User;
   showPassword: boolean = false;
+  isSubmitted = false;
 
 
   constructor(private fb: FormBuilder, private userService: UserServiceService) {}
@@ -54,9 +55,9 @@ export class ProfileComponent implements OnInit, CanComponentDeactivate{
     if (this.profileForm.valid) {
       const updatedUser: User = {
         ...this.currentUser,
-        ...this.profileForm.value
+        ...this.profileForm.value,
       };
-
+      
       this.userService.updateUser(updatedUser).subscribe(res => {
         alert('Profile updated successfully!');
         this.currentUser = res;
@@ -67,12 +68,13 @@ export class ProfileComponent implements OnInit, CanComponentDeactivate{
           phone: res.phone,
           address: res.address
         });
+        this.isSubmitted = true;
       });
     }
   }
 
    canDeactivate(): boolean {
-    if (this.profileForm.dirty) {
+    if (this.profileForm.dirty && !this.isSubmitted) {
       return confirm('You have unsaved changes. Are you sure you want to leave?');
     }
     return true;
