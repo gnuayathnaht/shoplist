@@ -17,6 +17,7 @@ export class LoginComponent {
   loginForm !: FormGroup;
   errorMessage: string = '';
   showPassword: boolean = false;
+  isSubmitted = false;
 
   constructor(private fb: FormBuilder,
     private httpClient: HttpClient,
@@ -28,9 +29,13 @@ export class LoginComponent {
   }
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]],
       password: ['', [Validators.required]]
     });
+  }
+
+  get formData() {
+    return this.loginForm.controls;
   }
 
   onSubmit() {
@@ -43,8 +48,9 @@ export class LoginComponent {
             this.authService.saveToken(response.token);
             localStorage.setItem('user', JSON.stringify(response));
             console.log('Set response to localStorage : ' ,localStorage.getItem('user'));
-            alert('Login successful!...');
+           //alert('Login successful!...');
             this.authService.setAuthentication(true);
+            this.isSubmitted = true;
             this.router.navigate(['/']);
           } else {
             this.errorMessage = 'Invalid email or password!';
@@ -57,5 +63,13 @@ export class LoginComponent {
       });
     }
   }
+
+  canDeactivate(): boolean {
+    if (this.loginForm.dirty && !this.isSubmitted) {
+      return confirm('You have unsaved changes. Are you sure you want to leave?');
+    }
+    return true;
+  }
+
 
 }
