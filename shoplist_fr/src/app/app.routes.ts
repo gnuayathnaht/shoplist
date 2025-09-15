@@ -31,6 +31,7 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canDeactivate: [unsavedChangesGuard],
   },
   {
     path: 'profile',
