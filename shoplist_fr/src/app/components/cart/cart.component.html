@@ -10,8 +10,14 @@
 
     <div *ngFor="let item of cartItems" class="mb-3 border-bottom pb-3">
       <div *ngIf="item.quantity > 0" class="row align-items-center">
-        <div class="col-md-6">
-          <p class="mb-1 fw-bold">{{ item.orderItem }}</p>
+        <div class="col-md-2 col-12 text-center">
+        <img 
+          [src]="'http://localhost:8080/api/items/images/' + item.imageUrl"
+          class="img-fluid rounded"
+          alt="{{ item.orderItem }}">
+        </div>
+        <div class="col-md-4">
+          <p class="m-1 fw-bold">{{ item.orderItem }}</p>
           <p class="text-muted">{{ item.categoryName }}</p>
           <p class="text-success">{{ item.price |currency}}</p>
         </div>
