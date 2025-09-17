@@ -17,6 +17,7 @@ public class CartItemDto {
     private String orderItem;
     private double price;
     private int quantity;
+    private String imageUrl;
 
     public CartItemDto(CartItem cartItem) {
         this.id = cartItem.getId();
@@ -24,6 +25,7 @@ public class CartItemDto {
         this.orderItem = cartItem.getItem().getName();
         this.price = cartItem.getItem().getPrice();
         this.quantity = cartItem.getQuantity();
+        this.imageUrl = cartItem.getItem().getImagePath();
     }
 }
 

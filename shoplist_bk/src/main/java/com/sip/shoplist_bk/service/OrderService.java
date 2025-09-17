@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import com.sip.shoplist_bk.dto.CartItemDto;
 import com.sip.shoplist_bk.dto.OrderDto;
 import com.sip.shoplist_bk.entity.Category;
+import com.sip.shoplist_bk.entity.Item;
 import com.sip.shoplist_bk.entity.Order;
 import com.sip.shoplist_bk.entity.OrderItem;
 import com.sip.shoplist_bk.entity.User;
 import com.sip.shoplist_bk.repo.CartItemRepo;
+import com.sip.shoplist_bk.repo.ItemRepo;
 import com.sip.shoplist_bk.repo.OrderRepo;
 
 import jakarta.transaction.Transactional;
@@ -27,6 +29,7 @@ public class OrderService {
 	private final CartService cartService;
 	private final CartItemRepo cartItemRepo;
 	private final CategoryService categoryService;
+	private final ItemRepo itemRepo;
 	
 	@Transactional
 	public void checkoutOrder(OrderDto orderDto) {
@@ -48,20 +51,15 @@ public class OrderService {
 	    order.setUser(user.get());
 	    cartItems.forEach(cartItem -> {
 	        OrderItem orderItem = new OrderItem();
-	        orderItem.setItem(cartItem.getOrderItem());
 	        orderItem.setQuantity(cartItem.getQuantity());
 	        orderItem.setPrice(cartItem.getPrice());
-	        
-	        System.out.println(orderItem.getCategory());
-	        if (cartItem.getCategoryName() != null) {
-	        	 Category category = categoryService.findByName(cartItem.getCategoryName());
-	        	 orderItem.setCategory(category); 
-	        }
+	        Item item = itemRepo.findById(cartItem.getId())
+                    .orElseThrow(() -> new RuntimeException("Item not found with id " + cartItem.getId()));
+        orderItem.setItem(item);
+
 	        order.addOrderItems(orderItem);
 	    });
 	    
-	    
-
 		Order createdOrder = orderRepository.save(order);
 		
 		if(createdOrder != null) {
