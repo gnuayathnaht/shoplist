@@ -34,7 +34,7 @@ public class InvoiceController {
         content.append("Total: $").append(order.getTotal()).append("\n\n");
         content.append("Items:\n");
         order.getItems().forEach(item -> {
-            content.append("-  Category:: ").append(item.getCategory().getName())
+            content.append("-  Category:: ").append(item.getItem().getCategory().getName())
             	   .append(" | Item:: ").append(item.getItem())
                    .append(" | Qty:: ").append(item.getQuantity())
                    .append(" | Price:: $").append(item.getPrice())

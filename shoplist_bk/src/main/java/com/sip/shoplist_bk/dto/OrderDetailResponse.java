@@ -9,7 +9,7 @@ public record OrderDetailResponse(int orderId, LocalDateTime dateTime, List<Deta
 
 	public static OrderDetailResponse from(Order order) {
         List<DetailItemResponse> itemResponses = order.getItems().stream()
-                .map(i -> new DetailItemResponse(i.getCategory().getName(),i.getItem(), i.getQuantity(), i.getPrice()))
+                .map(i -> new DetailItemResponse(i.getItem().getCategory().getName(),i.getItem().getName(), i.getQuantity(), i.getPrice()))
                 .toList();
 
         return new OrderDetailResponse(

@@ -29,12 +29,17 @@ export class ItemsComponent {
         console.log("completed get all categories.")
         this.categories().forEach(category => {
           this.itemsService.getItemsByCategoryId(category.id).subscribe({
-            next: resp => this.items.set(resp),
+            next: resp => {
+              this.items.set(resp); 
+              if (resp.length > 0) {
+                this.categoryMap.set(category.name, this.items()); 
+              }
+            },
             complete: () => {
-              console.log("completed get all items retrieved with category id.")
-              this.categoryMap.set(category.name, this.items())
+              console.log("completed get all items retrieved with category id.");
             }
-          })
+          });
+
 
         })
       }
