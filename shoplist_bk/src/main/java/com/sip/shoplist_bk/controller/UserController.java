@@ -71,8 +71,8 @@ public class UserController {
 		);
 
 		if (authentication.isAuthenticated()) {
-			String token = jwtUtil.generateToken(user.getEmail(), user.getId());
 			User userExist = userService.findByEmail(user.getEmail());
+			String token = jwtUtil.generateToken(userExist.getEmail(), userExist.getId());
 			UserDto userDto = new UserDto(userExist);
 			return ResponseEntity.ok(new LoginResponse(token, userDto));
 		} else {
@@ -94,13 +94,13 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile")
-	public ResponseEntity<UserDto> getProfile(@RequestHeader("Authorization") String authHeader) {
+	public ResponseEntity<User> getProfile(@RequestHeader("Authorization") String authHeader) {
 	    if (authHeader != null && authHeader.startsWith("Bearer ")) {
 	        String token = authHeader.substring(7);
 	        if (jwtUtil.validateToken(token)) {
 	            Integer userId = jwtUtil.extractUserId(token);
 	            User user = userService.findById(userId);
-	            return ResponseEntity.ok(new UserDto(user));
+	            return ResponseEntity.ok(user);
 	        }
 	    }
 		return ResponseEntity.status(401).build();
@@ -109,6 +109,7 @@ public class UserController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User updatedUser = userService.updateUser(id, user);
 		return ResponseEntity.ok(updatedUser);
 	}
