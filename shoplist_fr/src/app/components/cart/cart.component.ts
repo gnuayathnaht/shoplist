@@ -51,14 +51,14 @@ export class CartComponent implements OnInit {
   }
 
   increaseQty(item: CartItem): void {
-    this.cartService.updateQuantity(item.id, item.quantity + 1).subscribe(() => this.loadCart());
+    this.cartService.updateQuantity(item.itemId, item.quantity + 1).subscribe(() => this.loadCart());
   }
 
   decreaseQty(item: CartItem): void {
     if (item.quantity > 1) {
-      this.cartService.updateQuantity(item.id, item.quantity - 1).subscribe(() => this.loadCart());
+      this.cartService.updateQuantity(item.itemId, item.quantity - 1).subscribe(() => this.loadCart());
     } else {
-      this.removeItem(item.id);
+      this.removeItem(item.itemId);
     }
   }
 

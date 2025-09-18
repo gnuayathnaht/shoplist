@@ -82,8 +82,9 @@ export class ItemDetailsComponent {
       //add item to cart
       if (item.id) {
         let cartItem: CartItem = {
-          id: item.id,
+          //id: item.id,
           categoryName: this.categoryName,
+          itemId:item.id,
           orderItem: item.name,
           price: item.price,
           // imgPath: item.imagePath,
