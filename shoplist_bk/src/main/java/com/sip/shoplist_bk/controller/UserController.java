@@ -4,6 +4,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +27,6 @@ import com.sip.shoplist_bk.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin("http://localhost:4200/")
 public class UserController {
 
 	@Autowired
@@ -34,7 +37,12 @@ public class UserController {
 
 	@Autowired
 	private JwtUtil jwtUtil;
-	
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserDto> getUserByID(@PathVariable int userId){
@@ -47,27 +55,29 @@ public class UserController {
 		}
 		
 	}
-	@PostMapping
-	public ResponseEntity<User> saveRegisterUser(@RequestBody User user) {
+
+	@PostMapping("/register")
+	public ResponseEntity<User> registerWithAuth(@RequestBody User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User registerUser = userRepo.save(user);
 		return ResponseEntity.ok(registerUser);
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> loginCheck(@RequestBody User user) {
-		User userExist = userService.findByEmail(user.getEmail());
+	public ResponseEntity<?> loginWithAuth(@RequestBody User user) {
 
-		if (userExist == null) {
-			return ResponseEntity.status(401).body("Email not found");
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+		);
+
+		if (authentication.isAuthenticated()) {
+			String token = jwtUtil.generateToken(user.getEmail(), user.getId());
+			User userExist = userService.findByEmail(user.getEmail());
+			UserDto userDto = new UserDto(userExist);
+			return ResponseEntity.ok(new LoginResponse(token, userDto));
+		} else {
+			return ResponseEntity.status(401).body("Wrong email or password");
 		}
-
-		if (!userExist.getPassword().equals(user.getPassword())) {
-			return ResponseEntity.status(401).body("Password incorrect");
-		}
-
-		String token = jwtUtil.generateToken(userExist.getEmail(), userExist.getId());
-		UserDto userDto = new UserDto(userExist);
-		return ResponseEntity.ok(new LoginResponse(token, userDto));
 	}
 	
 	@GetMapping("/validate")

@@ -28,7 +28,6 @@ import com.sip.shoplist_bk.service.ItemService;
 
 @RestController
 @RequestMapping("/api/items")
-@CrossOrigin("http://localhost:4200/")
 public class ItemController {
 
     @Value("${file.upload-dir}")

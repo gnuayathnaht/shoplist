@@ -15,7 +15,6 @@ import com.sip.shoplist_bk.repo.OrderRepo;
 
 @RestController
 @RequestMapping("/api/orders")
-@CrossOrigin(origins = "http://localhost:4200")
 public class OrderHistoryController {
     private final OrderRepo orderRepo;
 
