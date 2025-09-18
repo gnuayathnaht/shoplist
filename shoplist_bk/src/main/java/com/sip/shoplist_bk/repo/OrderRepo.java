@@ -11,6 +11,4 @@ import com.sip.shoplist_bk.entity.Order;
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Integer>{
 	List<Order> findByUserId(int userId);
-	  
-	Optional<Order> findById(Integer id);
 }

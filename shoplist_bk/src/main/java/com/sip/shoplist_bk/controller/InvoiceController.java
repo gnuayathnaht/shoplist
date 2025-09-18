@@ -12,7 +12,6 @@ import com.sip.shoplist_bk.service.EmailService;
 
 @RestController
 @RequestMapping("/api/invoice")
-@CrossOrigin(origins = "http://localhost:4200")
 public class InvoiceController {
     private  final OrderRepo orderRepo;
     private  final EmailService emailService;

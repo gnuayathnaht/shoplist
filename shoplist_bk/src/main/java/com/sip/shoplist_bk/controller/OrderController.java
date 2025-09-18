@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/order")
-@CrossOrigin("http://localhost:4200/")
 @RequiredArgsConstructor
 public class OrderController {
 	
