@@ -53,7 +53,7 @@ public class OrderService {
 	        OrderItem orderItem = new OrderItem();
 	        orderItem.setQuantity(cartItem.getQuantity());
 	        orderItem.setPrice(cartItem.getPrice());
-	        Item item = itemRepo.findById(cartItem.getId())
+	        Item item = itemRepo.findById(cartItem.getItemId())
                     .orElseThrow(() -> new RuntimeException("Item not found with id " + cartItem.getId()));
         orderItem.setItem(item);
 

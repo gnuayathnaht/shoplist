@@ -74,7 +74,7 @@ public class CartController {
 	    List<CartItem> savedCartItems = new ArrayList<>();
 	    for (CartItemDto cartItemDto : cartDto.getItems()) {
 	    	
-	    	int itemId = cartItemDto.getId();
+	    	int itemId = cartItemDto.getItemId();
 	    	int cartId = cart.getId();
 	    	System.out.println("item id" + itemId);
 	    	System.out.println("cart id" + cartId);
