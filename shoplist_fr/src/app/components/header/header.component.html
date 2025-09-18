@@ -32,10 +32,37 @@
       >
         <i class="fa fa-user"></i>
       </button>
-      <div class="dropdown-menu dropdown-menu-end">
-        <button class="dropdown-item" routerLink="/profile">Profile</button>
-        <button class="dropdown-item" routerLink="/orders">OrderHistory</button>
-        <button class="dropdown-item" (click)="logout()">Logout</button>
+      <div class="dropdown-menu dropdown-menu-end px-3">
+        <button class="dropdown-item" routerLink="/profile">
+          <div class="row">
+            <div class="col-3">
+              <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            </div>
+            <div class="col-6">
+              Profile
+            </div>
+          </div>
+        </button>
+        <button class="dropdown-item" routerLink="/orders">
+          <div class="row">
+            <div class="col-3">
+              <i class="fa fa-history" aria-hidden="true"></i>
+            </div>
+            <div class="col-6">
+              Order History
+            </div>
+          </div>
+        </button>
+        <button class="dropdown-item" (click)="logout()">
+          <div class="row">
+            <div class="col-3">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </div>
+            <div class="col-6">
+              Logout
+            </div>
+          </div>
+        </button>
       </div>
       <div>
         <button class="btn" [routerLink]="['/cart']">

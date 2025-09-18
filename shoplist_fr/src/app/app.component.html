@@ -2,7 +2,7 @@
     <app-header />
     <div class="categories">
         @for (category of categories(); track $index) {
-        <a [routerLink]="['/category', category.id]" [queryParams]="{ category: category.name }" class="btn me-3 mt-3 ms-1">
+        <a [routerLink]="['/category', category.id]" [queryParams]="{ category: category.name }" class="btn me-3 mt-3 ms-1 category-btn">
             {{ category.name }}
         </a>
 
