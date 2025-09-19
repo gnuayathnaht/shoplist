@@ -47,7 +47,7 @@ export class CheckoutComponent implements OnInit {
     //   this.address = user.address;
     // });
 
-    this.userService.getUserAddress(this.userId).subscribe(address => {
+    this.userService.getAddressByUserId(this.userId).subscribe(address => {
       console.log("Address",address)
       this.address = address
     });
