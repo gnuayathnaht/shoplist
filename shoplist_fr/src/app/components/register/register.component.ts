@@ -17,6 +17,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   isSubmitted = false;
   showPassword: boolean = false;
+  passwordMismatch: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserServiceService) {
 
@@ -24,10 +25,17 @@ export class RegisterComponent {
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{9,11}$')]],
       address: ['', [Validators.required]]
-    });
+     });
   }
+//   passwordMatchValidator = (form: FormGroup) => {
+//   const password = form.get('password')?.value;
+//   const confirmPassword = form.get('confirmPassword')?.value;
+
+//   return password === confirmPassword ? null : { mismatch: true };
+// };
   get formData() {
     return this.registerForm.controls;
   }
@@ -37,6 +45,19 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
+    this.isSubmitted = true;
+    this.registerForm.markAllAsTouched();
+
+    const password = this.registerForm.get('password')?.value;
+    const confirmPassword = this.registerForm.get('confirmPassword')?.value;
+
+     if (password !== confirmPassword) {
+      this.passwordMismatch = true;
+      return; 
+     } else {
+      this.passwordMismatch = false;
+  }
+
     if (this.registerForm.valid) {
       const user: User = this.registerForm.value;
       this.userService.registerUser(user).subscribe({
