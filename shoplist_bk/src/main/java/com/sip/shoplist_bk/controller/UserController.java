@@ -45,7 +45,7 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserDto> getUserByID(@PathVariable int userId){
+	public ResponseEntity<UserDto> findUserById(@PathVariable int userId){
 		Optional<UserDto> user = userService.findUserDtoById(userId);
 		System.out.println(user);
 		if(user.isPresent()) {
@@ -61,14 +61,14 @@ public class UserController {
 		return userService.getUserAddress(userId);
 	}
 	@PostMapping("/register")
-	public ResponseEntity<User> registerWithAuth(@RequestBody User user) {
+	public ResponseEntity<User> register(@RequestBody User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User registerUser = userRepo.save(user);
 		return ResponseEntity.ok(registerUser);
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> loginWithAuth(@RequestBody User user) {
+	public ResponseEntity<?> login(@RequestBody User user) {
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
