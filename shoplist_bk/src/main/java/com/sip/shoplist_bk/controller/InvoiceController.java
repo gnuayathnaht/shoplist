@@ -12,6 +12,7 @@ import com.sip.shoplist_bk.service.EmailService;
 
 @RestController
 @RequestMapping("/api/invoice")
+@CrossOrigin(origins = "http://localhost:4200")
 public class InvoiceController {
     private  final OrderRepo orderRepo;
     private  final EmailService emailService;
@@ -28,15 +29,14 @@ public class InvoiceController {
 
         StringBuilder content = new StringBuilder();
         content.append("Hello ").append(order.getUser().getName()).append(",\n\n");
-        content.append("Here is your invoice for Order #").append(order.getId()).append("\n");
+        content.append("Here is your invoice for Order- ").append(order.getId()).append("\n");
         content.append("Date: ").append(order.getOrderDateTime()).append("\n");
         content.append("Total: $").append(order.getTotal()).append("\n\n");
-        content.append("Items:\n");
+        content.append(" List of Products:: \n");
         order.getItems().forEach(item -> {
-            content.append("-  Category:: ").append(item.getItem().getCategory().getName())
-            	   .append(" | Item:: ").append(item.getItem())
-                   .append(" | Qty:: ").append(item.getQuantity())
-                   .append(" | Price:: $").append(item.getPrice())
+            content.append(" Item:: ").append(item.getItem().getName())
+                   .append(" | Quantity:: ").append(item.getQuantity())
+                   .append(" | Price:: $ ").append(item.getPrice())
                    .append("\n");
         });
 

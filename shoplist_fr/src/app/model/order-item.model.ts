@@ -4,4 +4,5 @@ export interface OrderItem {
   itemName: string;
   quantity: number;
   price: number;
+  imagePath: string;
 }
