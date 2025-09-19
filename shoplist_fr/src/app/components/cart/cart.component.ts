@@ -15,15 +15,15 @@ import { NoProductComponent } from '../no-product/no-product.component';
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
-  cartCount:number = 0;
-  totalPrice:number = 0;
+  cartCount: number = 0;
+  totalPrice: number = 0;
   userId: number = 1;
 
   authService = inject(AuthServiceService);
-  
+
   constructor(
     private cartService: CartService,
-    private router:Router
+    private router: Router
   ) {
 
   }
@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
           this.totalPrice = cart.total;
           this.cartItems.flatMap((item) => {
             console.log(item.quantity);
-           // this.cartCount += item.quantity;
+            // this.cartCount += item.quantity;
           });
 
         },
@@ -51,24 +51,41 @@ export class CartComponent implements OnInit {
   }
 
   increaseQty(item: CartItem): void {
-    this.cartService.updateQuantity(item.itemId, item.quantity + 1).subscribe(() => this.loadCart());
+    if (!item.id) {
+      console.error('CartItem ID is undefined');
+      return;
+    } else {
+      this.cartService.updateQuantity(item.id, item.quantity + 1).subscribe(() => this.loadCart());
+    }
+
   }
 
   decreaseQty(item: CartItem): void {
-    if (item.quantity > 1) {
-      this.cartService.updateQuantity(item.itemId, item.quantity - 1).subscribe(() => this.loadCart());
+    if (!item.id) {
+      console.error('CartItem ID is undefined');
+      return;
     } else {
-      this.removeItem(item.itemId);
+      if (item.quantity > 1) {
+        this.cartService.updateQuantity(item.id, item.quantity - 1).subscribe(() => this.loadCart());
+      } else {
+        console.log("itemId" + item.itemId);
+        this.removeItem(item);
+      }
     }
   }
 
-  removeItem(itemId:number){
-    this.cartService.removeCartItem(itemId).subscribe(() => this.loadCart());
+  removeItem(item: CartItem) {
+    if (!item.id) {
+      console.error('CartItem ID is undefined');
+      return;
+    } else {
+      this.cartService.removeCartItem(item.id).subscribe(() => this.loadCart());
+    }
   }
 
   proceedToCheckout(): void {
-    console.log("....checkout"); 
-  this.router.navigate(['/checkout']) ;
-}
+    console.log("....checkout");
+    this.router.navigate(['/checkout']);
+  }
 
 }
