@@ -1,17 +1,74 @@
-<h2>Order Details</h2>
-<div *ngIf="order">
-  <p><strong>Order ID:</strong> {{ order.orderId }}</p>
-  <p><strong>Date:</strong> {{ order.dateTime| date:'long' }}</p>
-  <p><strong>Total:</strong> ${{ order.total }}</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-receipt"></i> Order Details
+        </div>
+        <div class="card-body">
+          <div class="order-details" *ngIf="order">
+            <div class="detail-row">
+              <div class="detail-label">Order ID</div>
+              <div>{{order.orderId}}</div>
+            </div>
 
-  <h3>Items</h3>
-  <ul>
-    <li *ngFor="let item of order.items">
-      Category: {{ item.categoryName }}  | Item: {{item.itemName}}  | Qty: {{ item.quantity }} | ${{ item.price }}
-    </li>
-  </ul>
+            <div class="detail-row">
+              <div class="detail-label">Date</div>
+              <div>{{order.dateTime | date:"long"}}</div>
+            </div>
 
-  <button (click)="viewInvoice()">View Invoice</button>
-</div>
+            <div *ngFor="let item of order.items" class="item-row">
+              <div class="col-md-2 col-12 text-center">
+                <img
+                  [src]="'http://localhost:8080/api/items/images/' + item.imagePath"
+                  class="img-fluid rounded"
+                  alt="{{ item.itemName }}"
+                />
+              </div>
 
+              <div class="item-info">
+                <p>Category : {{ item.categoryName }}</p>
+                <p>Item : {{ item.itemName }}</p>
+                <p>Quantity : {{item.quantity}}</p>
+                <p class="text-success">Price : {{ item.price|currency}}</p>
+              </div>
 
+              <div class="item-calc">
+                {{ item.price | currency }} × {{ item.quantity }}
+              </div>
+
+              <div class="item-total">
+                {{ item.quantity * item.price | currency }}
+              </div>
+            </div>
+            <!-- End of For Loop -->
+            <div class="divider"></div>
+
+            <div class="footer-row">
+              <div>
+                <button class="invoice-btn" (click)="sendInvoice()">
+                  <i class="fas fa-file-invoice"></i> Send Invoice
+                </button>
+                <p *ngIf="emailStatus" class="email-status">
+                  {{ emailStatus }}
+                </p>
+              </div>
+
+              <div class="total-amount">Total: {{order.total | currency}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

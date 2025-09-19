@@ -12,7 +12,6 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
 import { OrderHistoryComponent } from './components/order-history/order-history-component';
 import { OrderDetailComponent } from './components/order-detail/order-detail-component';
-import { InvoiceComponent } from './components/invoice/invoice-component';
 
 export const routes: Routes = [
   {
@@ -64,5 +63,4 @@ export const routes: Routes = [
   },
   { path: 'orders', component: OrderHistoryComponent },
   { path: 'orders/:id', component: OrderDetailComponent },
-  { path: 'invoice/:id', component: InvoiceComponent },
 ];

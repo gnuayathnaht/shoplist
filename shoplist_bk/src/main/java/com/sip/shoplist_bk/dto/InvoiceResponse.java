@@ -13,7 +13,7 @@ public record InvoiceResponse(
 ) {
     public static InvoiceResponse from(Order order) {
         List<OrderItemResponse> itemResponses = order.getItems().stream()
-                .map(i -> new OrderItemResponse(i.getItem().getCategory().getName(), i.getItem().getName(),i.getQuantity(), i.getPrice()))
+                .map(i -> new OrderItemResponse(i.getItem().getName(),i.getQuantity(), i.getPrice()))
                 .toList();
 
         return new InvoiceResponse(
@@ -26,5 +26,5 @@ public record InvoiceResponse(
     }
 }
 
-record OrderItemResponse(String categoryName,String itemName, int quantity, double price) {}
+record OrderItemResponse(String itemName, int quantity, double price) {}
 

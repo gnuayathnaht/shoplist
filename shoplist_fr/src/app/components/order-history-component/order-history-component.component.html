@@ -1,9 +1,0 @@
-<h2>Order History</h2>
-<ul>
-
- <li *ngFor="let order of orders" (click)="viewOrder(order.id)" style="cursor:pointer;">
-    Order #{{ order.id }} | Date: {{ order.orderDateTime | date:'short' }} | Total: ${{ order.total }}
-  </li>
- 
-</ul>
-
