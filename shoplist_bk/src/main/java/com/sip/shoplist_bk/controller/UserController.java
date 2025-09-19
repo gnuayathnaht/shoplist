@@ -55,7 +55,11 @@ public class UserController {
 		}
 		
 	}
-
+	
+	@GetMapping("/address/{userId}")
+	public String getUserAddress(@PathVariable int userId) {
+		return userService.getUserAddress(userId);
+	}
 	@PostMapping("/register")
 	public ResponseEntity<User> registerWithAuth(@RequestBody User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));

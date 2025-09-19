@@ -23,7 +23,7 @@ public class UserService {
 		return userRepo.findById(userId);
 	}
 	
-	public String findAddressByUserId(int userId) {
+	public String getUserAddress(int userId) {
 		User user = userRepo.findById(userId).orElse(new User());
 		return user.getAddress();
 
@@ -89,4 +89,6 @@ public class UserService {
         public User findById(int id) {
             return userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         }
+
+	
 }

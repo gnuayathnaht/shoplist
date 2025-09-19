@@ -36,13 +36,20 @@ export class CheckoutComponent implements OnInit {
     this.userId = this.authService.getUserId();
     this.cartService.getCartByUserId(this.userId).subscribe(cart => {
       console.log(cart);
+      console.log(this.userId);
       this.cartId = cart.cartId;
       this.cartItems = cart.items;
       this.total = cart.total;
     });
 
-    this.userService.getUserById(this.userId).subscribe(user => {
-      this.address = user.address;
+    // this.userService.getUserById(this.userId).subscribe(user => {
+    //   console.log(user);
+    //   this.address = user.address;
+    // });
+
+    this.userService.getUserAddress(this.userId).subscribe(address => {
+      console.log("Address",address)
+      this.address = address
     });
   }
 
