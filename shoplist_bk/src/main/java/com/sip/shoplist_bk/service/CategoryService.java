@@ -14,15 +14,15 @@ public class CategoryService {
     @Autowired
     private CategoryRepo categoryRepo;
 
-    public Category save(Category category) {
+    public Category saveCategory(Category category) {
         return categoryRepo.save(category);
     }
 
-    public List<Category> findAll() {
+    public List<Category> findAllCategories() {
         return categoryRepo.findAll();
     }
     
-    public Category findByName(String categoryName) {
+    public Category findCategoryByName(String categoryName) {
 		return categoryRepo.findByName(categoryName).orElseThrow(() -> new RuntimeException("Category not found: " + categoryName));
 	}
     

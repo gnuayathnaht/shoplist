@@ -16,14 +16,14 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAllCategory() {
-        List<Category> categories = categoryService.findAll();
+    public ResponseEntity<List<Category>> findAllCategories() {
+        List<Category> categories = categoryService.findAllCategories();
         return ResponseEntity.ok(categories);
     }
 
     @PostMapping
     public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
-        Category dbCategory = categoryService.save(category);
+        Category dbCategory = categoryService.saveCategory(category);
         return ResponseEntity.ok(dbCategory);
     }
 }
