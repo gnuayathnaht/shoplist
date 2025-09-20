@@ -38,13 +38,13 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<Item>> findAllItems() {
-        List<Item> items = itemService.findAll();
+        List<Item> items = itemService.findAllItems();
         return ResponseEntity.ok(items);
     }
 
     @PostMapping
     public ResponseEntity<Item> saveItem(@RequestBody Item item, @RequestParam Integer categoryId) {
-        Item dbItem = itemService.save(item, categoryId);
+        Item dbItem = itemService.saveItem(item, categoryId);
         return ResponseEntity.ok(dbItem);
     }
 
@@ -57,7 +57,7 @@ public class ItemController {
     @GetMapping("/itemId/{id}")
     public ResponseEntity<Item> findItemById(@PathVariable Integer id) {
     	
-        Item item = itemService.findById(id);
+        Item item = itemService.findItemById(id);
         return ResponseEntity.ok(item);
     }
 
@@ -74,9 +74,9 @@ public class ItemController {
         Files.write(filePath, file.getBytes());
 
         // Here you save path in DB (pseudo code)
-        Item item = itemService.findById(id);
+        Item item = itemService.findItemById(id);
         item.setImagePath(fileName);
-        itemService.update(item);
+        itemService.updateItem(item);
 
         return ResponseEntity.ok(fileName); // send filename back
     }

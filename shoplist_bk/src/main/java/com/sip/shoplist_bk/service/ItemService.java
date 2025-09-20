@@ -20,11 +20,11 @@ public class ItemService {
     @Autowired
     private CategoryRepo categoryRepo;
 
-    public Item update(Item item) {
+    public Item updateItem(Item item) {
         return itemRepo.save(item);
     }
 
-    public Item save(Item item, Integer categoryId) {
+    public Item saveItem(Item item, Integer categoryId) {
         Optional<Category> category = categoryRepo.findById(categoryId);
         if (category.isPresent()) {
             item.setCategory(category.get());
@@ -34,11 +34,11 @@ public class ItemService {
         throw new RuntimeException("Author not found with id: " + categoryId);
     }
 
-    public List<Item> findAll() {
+    public List<Item> findAllItems() {
         return itemRepo.findAll();
     }
 
-    public Item findById(Integer id) {
+    public Item findItemById(Integer id) {
         return itemRepo.findById(id).get();
     }
 
