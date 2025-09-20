@@ -58,7 +58,7 @@ public class CartController {
 	@PostMapping("/save")
 	public ResponseEntity<CartDto> saveCartAndCartItem(@RequestBody CartDto cartDto) {
 	    Cart cart = null;
-	    Optional<Cart> result = cartService.getCartByUser(cartDto.getUserId());
+	    Optional<Cart> result = cartService.findCartByUserId(cartDto.getUserId());
 	    if(result.isPresent()) {
 	    	cart = result.get();
 	    }

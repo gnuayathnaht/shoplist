@@ -25,7 +25,7 @@ public class CartService {
 		return cartRepo.findByUserId(userId).map(CartDto::new);
 	}
 	
-	public Optional<Cart> getCartByUser(int userId) {
+	public Optional<Cart> findCartByUserId(int userId) {
 		return cartRepo.findByUserId(userId);
 	}
 	
