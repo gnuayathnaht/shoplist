@@ -62,7 +62,7 @@ public class ItemController {
     }
 
     @PostMapping("/{id}/upload")
-    public ResponseEntity<String> uploadFile(@PathVariable Integer id,
+    public ResponseEntity<String> uploadFile(@PathVariable Integer itemId,
                                              @RequestParam("file") MultipartFile file) throws IOException {
         // Create folder if not exists
         File dir = new File(uploadDir);
@@ -74,7 +74,7 @@ public class ItemController {
         Files.write(filePath, file.getBytes());
 
         // Here you save path in DB (pseudo code)
-        Item item = itemService.findItemById(id);
+        Item item = itemService.findItemById(itemId);
         item.setImagePath(fileName);
         itemService.updateItem(item);
 
