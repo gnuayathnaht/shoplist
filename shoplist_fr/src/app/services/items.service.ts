@@ -14,7 +14,7 @@ export class ItemsService {
     return this.httpClient.get<Item[]>(this.API_URL);
   }
 
-  getItemByID(itemId: number){
+  getItemById(itemId: number){
     return this.httpClient.get<Item>(`${this.API_URL}/itemId/${itemId}`);
   }
 

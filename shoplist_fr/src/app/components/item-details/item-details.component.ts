@@ -60,7 +60,7 @@ export class ItemDetailsComponent {
   getItemById(id: number) {
     if (id) {
       //fetch the item by using id from server or maybe from service
-      this.itemsService.getItemByID(this.itemId).subscribe(data => {
+      this.itemsService.getItemById(this.itemId).subscribe(data => {
         this.item = data;
       })
     }
