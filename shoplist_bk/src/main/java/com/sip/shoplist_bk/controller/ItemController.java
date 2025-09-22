@@ -61,7 +61,7 @@ public class ItemController {
         return ResponseEntity.ok(item);
     }
 
-    @PostMapping("/{id}/upload")
+    @PostMapping("/{itemId}/upload")
     public ResponseEntity<String> uploadFile(@PathVariable Integer itemId,
                                              @RequestParam("file") MultipartFile file) throws IOException {
         // Create folder if not exists
