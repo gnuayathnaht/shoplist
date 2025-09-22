@@ -31,8 +31,8 @@ export class CartService {
     return this.http.put<void>(`${this.BASE_URL}/update/${cartItemId}?quantity=${quantity}`,{});
   }
 
-  removeCartItem(itemId:number):Observable<void>{
-    return this.http.delete<void>(`${this.BASE_URL}/delete/${itemId}`);
+  removeCartItem(cartItemId:number):Observable<void>{
+    return this.http.delete<void>(`${this.BASE_URL}/delete/${cartItemId}`);
   }
 
   

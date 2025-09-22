@@ -1,5 +1,5 @@
 export interface CartItem {
- id?:number,
+ cartItemId?:number,
  categoryName:string,
  itemId:number,
  orderItem:string,

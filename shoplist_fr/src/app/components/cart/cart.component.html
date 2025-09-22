@@ -8,34 +8,34 @@
   <div *ngIf="cartItems.length > 0" class="card p-4 shadow-sm col-md-6 m-auto">
     <h2 class="mb-4">Your Cart</h2>
 
-    <div *ngFor="let item of cartItems" class="mb-3 border-bottom pb-3">
-      <div *ngIf="item.quantity > 0" class="row align-items-center">
+    <div *ngFor="let cartItem of cartItems" class="mb-3 border-bottom pb-3">
+      <div *ngIf="cartItem.quantity > 0" class="row align-items-center">
         <div class="col-md-2 col-12 text-center">
         <img 
-          [src]="'http://localhost:8080/api/items/images/' + item.imageUrl"
+          [src]="'http://localhost:8080/api/items/images/' + cartItem.imageUrl"
           class="img-fluid rounded"
-          alt="{{ item.orderItem }}">
+          alt="{{ cartItem.orderItem }}">
         </div>
         <div class="col-md-4">
-          <p class="m-1 fw-bold">{{ item.orderItem }}</p>
-          <p class="text-muted">{{ item.categoryName }}</p>
-          <p class="text-success">{{ item.price |currency}}</p>
+          <p class="m-1 fw-bold">{{ cartItem.orderItem }}</p>
+          <p class="text-muted">{{ cartItem.categoryName }}</p>
+          <p class="text-success">{{ cartItem.price |currency}}</p>
         </div>
 
         <div class="col-md-4 d-flex align-items-center">
-          <button class="btn btn-outline-secondary me-2" (click)="decreaseQty(item)">−</button>
-          <span>{{ item.quantity }}</span>
-          <button class="btn btn-outline-secondary ms-2" (click)="increaseQty(item)">+</button>
+          <button class="btn btn-outline-secondary me-2" (click)="decreaseQty(cartItem)">−</button>
+          <span>{{ cartItem.quantity }}</span>
+          <button class="btn btn-outline-secondary ms-2" (click)="increaseQty(cartItem)">+</button>
         </div>
 
         <div class="col-md-2">
           <p class="mb-0">Total:</p>
-          <span>{{ item.quantity * item.price | currency}}</span>
+          <span>{{ cartItem.quantity * cartItem.price | currency}}</span>
         </div>
       </div>
 
       <div class="text-end mt-2">
-        <button class="btn btn-sm btn-danger" (click)="removeItem(item)">Remove</button>
+        <button class="btn btn-sm btn-danger" (click)="removeItem(cartItem)">Remove</button>
       </div>
     </div>
 
