@@ -38,7 +38,7 @@ public class CartController {
 
 	@GetMapping("/view/{userId}")
 	public ResponseEntity<CartDto> viewCart(@PathVariable int userId) {
-		Optional<CartDto> cart = cartService.getCartByUserId(userId);
+		Optional<CartDto> cart = cartService.getCartDtoByUserId(userId);
 		return cart.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
@@ -49,16 +49,16 @@ public class CartController {
 		return ResponseEntity.ok().build();
 	}
 
-	@DeleteMapping("/delete/{itemId}")
-	public ResponseEntity<Void> removeCartItem(@PathVariable int itemId) {
-		cartService.removeCartItem(itemId);
+	@DeleteMapping("/delete/{cartItemId}")
+	public ResponseEntity<Void> removeCartItem(@PathVariable int cartItemId) {
+		cartService.removeCartItem(cartItemId);
 		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<CartDto> saveCartAndCartItem(@RequestBody CartDto cartDto) {
 	    Cart cart = null;
-	    Optional<Cart> result = cartService.findCartByUserId(cartDto.getUserId());
+	    Optional<Cart> result = cartService.getCartByUserId(cartDto.getUserId());
 	    if(result.isPresent()) {
 	    	cart = result.get();
 	    }

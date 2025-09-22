@@ -21,23 +21,23 @@ public class CartService {
 	private final CartItemRepo cartItemRepo;
 	private final UserRepo userRepo;
 	
-	public Optional<CartDto> getCartByUserId(int userId){
+	public Optional<CartDto> getCartDtoByUserId(int userId){
 		return cartRepo.findByUserId(userId).map(CartDto::new);
 	}
 	
-	public Optional<Cart> findCartByUserId(int userId) {
+	public Optional<Cart> getCartByUserId(int userId) {
 		return cartRepo.findByUserId(userId);
 	}
 	
 	 public void updateCartItemQuantity(int cartItemId, int quantity) {
-	        CartItem item = cartItemRepo.findById(cartItemId)
+	        CartItem existingCartItem = cartItemRepo.findById(cartItemId)
 	                .orElseThrow(() -> new RuntimeException("Cart item not found"));
-	        item.setQuantity(quantity);
-	        cartItemRepo.save(item);
+	        existingCartItem.setQuantity(quantity);
+	        cartItemRepo.save(existingCartItem);
 	    }
 
-	public void removeCartItem(int itemId) {
-		cartItemRepo.deleteById(itemId);
+	public void removeCartItem(int cartItemId) {
+		cartItemRepo.deleteById(cartItemId);
 		
 	}
 	

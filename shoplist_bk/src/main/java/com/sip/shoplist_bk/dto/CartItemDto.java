@@ -12,19 +12,19 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class CartItemDto {
-    private int id;
+    private int cartItemId;
     private String categoryName;
     private int itemId;
-    private String orderItem;
+    private String orderItemName;
     private double price;
     private int quantity;
     private String imageUrl;
 
     public CartItemDto(CartItem cartItem) {
-        this.id = cartItem.getId();
+        this.cartItemId = cartItem.getId();
         this.categoryName = cartItem.getItem().getCategory().getName();
         this.itemId = cartItem.getItem().getId();
-        this.orderItem = cartItem.getItem().getName();
+        this.orderItemName = cartItem.getItem().getName();
         this.price = cartItem.getItem().getPrice();
         this.quantity = cartItem.getQuantity();
         this.imageUrl = cartItem.getItem().getImagePath();

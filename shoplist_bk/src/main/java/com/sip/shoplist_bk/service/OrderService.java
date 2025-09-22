@@ -28,7 +28,6 @@ public class OrderService {
 	private final UserService userService;
 	private final CartService cartService;
 	private final CartItemRepo cartItemRepo;
-	private final CategoryService categoryService;
 	private final ItemRepo itemRepo;
 	
 	@Transactional
@@ -54,7 +53,7 @@ public class OrderService {
 	        orderItem.setQuantity(cartItem.getQuantity());
 	        orderItem.setPrice(cartItem.getPrice());
 	        Item item = itemRepo.findById(cartItem.getItemId())
-                    .orElseThrow(() -> new RuntimeException("Item not found with id " + cartItem.getId()));
+                    .orElseThrow(() -> new RuntimeException("Item not found with id " + cartItem.getItemId()));
         orderItem.setItem(item);
 
 	        order.addOrderItems(orderItem);
