@@ -57,15 +57,16 @@
             <div class="footer-row">
               <div>
                 <button class="invoice-btn" (click)="sendInvoice()">
-                  <i class="fas fa-file-invoice"></i> Send Invoice
+                  <i class="fas fa-file-invoice"></i> Mail Invoice
                 </button>
-                <p *ngIf="emailStatus" class="email-status">
-                  {{ emailStatus }}
-                </p>
+
               </div>
 
               <div class="total-amount">Total: {{order.total | currency}}</div>
             </div>
+            <p *ngIf="emailStatus" class="email-status">
+                  {{ emailStatus }}
+            </p>
           </div>
         </div>
       </div>

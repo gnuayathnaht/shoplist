@@ -129,6 +129,7 @@ body {
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s;
+  margin-left: 30px;
 }
 
 .email-status {
@@ -136,6 +137,7 @@ body {
   font-weight: lighter; 
   color: #2d7a2d;
   font-style: italic;
+  margin-left: 30px;
 }
 .invoice-btn:hover {
   background: #4a6bdf;
