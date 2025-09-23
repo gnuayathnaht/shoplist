@@ -1,5 +1,8 @@
 package com.sip.shoplist_bk.controller;
 
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,17 +29,19 @@ public class InvoiceController {
     public String sendInvoiceEmail(@PathVariable int orderId) {
         Order order = orderRepo.findById(orderId).orElseThrow();
         String email = order.getUser().getEmail();
+        DecimalFormat df = new DecimalFormat("#,###.##");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm a");
 
         StringBuilder content = new StringBuilder();
         content.append("Hello ").append(order.getUser().getName()).append(",\n\n");
         content.append("Here is your invoice for Order- ").append(order.getId()).append("\n");
-        content.append("Date: ").append(order.getOrderDateTime()).append("\n");
-        content.append("Total: $").append(order.getTotal()).append("\n\n");
+        content.append("Date: ").append(order.getOrderDateTime().format(formatter)).append("\n");
+        content.append("Total: $").append(df.format(order.getTotal())).append("\n\n");
         content.append(" List of Products:: \n");
         order.getItems().forEach(item -> {
             content.append(" Item:: ").append(item.getItem().getName())
                    .append(" | Quantity:: ").append(item.getQuantity())
-                   .append(" | Price:: $ ").append(item.getPrice())
+                   .append(" | Price:: $ ").append(df.format(item.getPrice()))
                    .append("\n");
         });
 
