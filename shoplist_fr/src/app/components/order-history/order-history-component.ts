@@ -8,7 +8,7 @@ import { OrderHistoryService } from '../../services/order-history.service';
   selector: 'app-order-history',
   imports: [CommonModule],
   templateUrl: './order-history-component.html',
-  styleUrl: './order-history-component.css'
+  styleUrl: './order-history-component.css',
 })
 export class OrderHistoryComponent implements OnInit {
   orders: OrderHistory[] = [];
@@ -22,11 +22,21 @@ export class OrderHistoryComponent implements OnInit {
   ngOnInit(): void {
     console.log("User's Id");
     console.log(this.userId);
-    this.orderHistoryService.getOrdersByUser(this.userId).subscribe((data) => {
-      this.orders = data;
-      console.log('Received data :: ');
-      console.table(data);
-    });
+    this.orderHistoryService
+      .getOrdersByUserId(this.userId)
+      .subscribe((data: any[]) => {
+        this.orders = data.map((item) => ({
+          orderId: item.id,
+          total: item.total,
+          orderDateTime: item.orderDateTime,
+          items: item.items,
+          user: item.user,
+        }));
+        console.log('Received data :: ');
+        console.table(data);
+        console.log('Received at Model :: ');
+        console.table(this.orders);
+      });
   }
 
   viewOrder(orderId: number): void {

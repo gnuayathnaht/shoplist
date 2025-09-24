@@ -19,7 +19,7 @@
           <li *ngFor="let order of orders">
             <div class="order-card">
               <div class="order-header">
-                <span class="order-id">Order {{order.id}}</span>
+                <span class="order-id">Order {{order.orderId}}</span>
                 <span class="order-total"
                   >${{order.total | number:'1.0-0'}}</span
                 >
@@ -30,7 +30,7 @@
                   order.orderDateTime | date:'short' }}
                 </span>
                 <div class="order-details">
-                  <button class="view-details" (click)="viewOrder(order.id)">
+                  <button class="view-details" (click)="viewOrder(order.orderId)">
                     View Details
                   </button>
                 </div>

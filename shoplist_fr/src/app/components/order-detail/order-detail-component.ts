@@ -25,24 +25,24 @@ export class OrderDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.orderId = this.route.snapshot.params['id'];
-    this.orderHistoryService.getOrderDetails(this.orderId).subscribe(data => {
+    this.orderId = this.route.snapshot.params['orderId'];
+    this.orderHistoryService.getOrderDetailsByOrderId(this.orderId).subscribe(data => {
       this.order = data;
       console.log('Received OrderDetails !');
       console.table(data);
     });
 
-     this.orderHistoryService.getInvoice(this.orderId).subscribe(data => {
+     this.orderHistoryService.getInvoiceByOrderId(this.orderId).subscribe(data => {
       this.invoice = data;
       console.table(data);
     });
 
   }
-  
+
   sendInvoice(): void {
   const confirmed = confirm("Do you want to send invoice via email?");
   if (confirmed) {
-    this.orderHistoryService.sendInvoice(this.orderId).subscribe({
+    this.orderHistoryService.sendInvoiceByOrderId(this.orderId).subscribe({
       next: (response) => this.emailStatus = response,
       error: () => this.emailStatus = '❌ Failed to send invoice'
     });

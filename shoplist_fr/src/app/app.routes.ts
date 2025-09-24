@@ -62,5 +62,5 @@ export const routes: Routes = [
     component: OrderSuccessComponent,
   },
   { path: 'orders', component: OrderHistoryComponent },
-  { path: 'orders/:id', component: OrderDetailComponent },
+  { path: 'orders/:orderId', component: OrderDetailComponent },
 ];
