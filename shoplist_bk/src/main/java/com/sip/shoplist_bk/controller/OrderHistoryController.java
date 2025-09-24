@@ -2,7 +2,6 @@ package com.sip.shoplist_bk.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,7 @@ public class OrderHistoryController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Order> getOrdersByUser(@PathVariable int userId) {
+    public List<Order> findOrdersByUserId(@PathVariable int userId) {
         return orderRepo.findByUserId(userId);
     }
 

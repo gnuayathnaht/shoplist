@@ -34,7 +34,7 @@ public class InvoiceController {
 
         StringBuilder content = new StringBuilder();
         content.append("Hello ").append(order.getUser().getName()).append(",\n\n");
-        content.append("Here is your invoice for Order- ").append(order.getId()).append("\n");
+        content.append("Here is your invoice for Order ").append(order.getId()).append("\n");
         content.append("Date: ").append(order.getOrderDateTime().format(formatter)).append("\n");
         content.append("Total: $").append(df.format(order.getTotal())).append("\n\n");
         content.append(" List of Products:: \n");
